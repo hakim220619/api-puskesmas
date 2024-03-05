@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ChatController;
+use App\Http\Controllers\Api\KeluhanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,13 @@ Route::middleware('auth:sanctum')->group(function () {
     //aplikasi
     Route::get('/me', [AuthController::class, 'getUsers'])->name('getUsers');
     Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/listKonsultasi',  [ChatController::class, 'listKonsultasi']);
+    Route::get('/listKeluhan',  [KeluhanController::class, 'listKeluhan']);
+    Route::get('/listKeluhanById/{id}',  [KeluhanController::class, 'listKeluhanById']);
 });
+
 Route::get('/messages',  [ChatController::class, 'messages']);
 Route::post('/addMessage',  [ChatController::class, 'addMessage']);
+Route::post('/addKeluhan',  [KeluhanController::class, 'addKeluhan']);
+Route::post('/addJawaban',  [KeluhanController::class, 'addJawaban']);
+Route::get('/keluhan/{id}',  [KeluhanController::class, 'keluhan']);
