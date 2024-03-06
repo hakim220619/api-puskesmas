@@ -58,8 +58,6 @@ class AuthController extends Controller
             'address' => $request->address,
             'jenis_kelamin' => $request->jenis_kelamin,
             'tanggal_lahir' => $request->tanggal_lahir,
-            'bb_lahir' => $request->bb_lahir,
-            'tb_lahir' => $request->tb_lahir,
             'nama_ortu' => $request->nama_ortu,
             'created_at' => now(),
         ];
