@@ -30,11 +30,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/listKeluhan',  [KeluhanController::class, 'listKeluhan']);
     Route::get('/listKeluhanById/{id}',  [KeluhanController::class, 'listKeluhanById']);
     Route::get('/listUsers',  [GeneralController::class, 'listUsers']);
+    Route::get('/listImunisasiAll',  [GeneralController::class, 'listImunisasiAll']);
+    Route::get('/liestUserById',  [GeneralController::class, 'liestUserById']);
 });
 
 Route::get('/messages',  [ChatController::class, 'messages']);
+
 Route::post('/addMessage',  [ChatController::class, 'addMessage']);
 Route::post('/addKeluhan',  [KeluhanController::class, 'addKeluhan']);
 Route::post('/addJawaban',  [KeluhanController::class, 'addJawaban']);
+Route::post('/addImunisasi',  [GeneralController::class, 'addImunisasi']);
 Route::post('/updatepenimbangan',  [GeneralController::class, 'updatepenimbangan']);
+Route::post('/editUsersOrtu',  [GeneralController::class, 'editUsersOrtu']);
 Route::get('/keluhan/{id}',  [KeluhanController::class, 'keluhan']);
