@@ -39,7 +39,7 @@ class AuthController extends Controller
     
     function getUsers()
     {
-        $user = User::where('email', request()->user()->email)->first();
+        $user = User::where('email', request()->user()->email)->get();
         return response()->json([
             'success' => true,
             'message' => 'Data Users',

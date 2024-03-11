@@ -28,6 +28,15 @@ class GeneralController extends Controller
             'data' => $data,
         ]);
     }
+    function liestImunisasiById()
+    {
+        $data = DB::select("select * from imunisasi where id_user = '" . request()->user()->id . "'");
+        return response()->json([
+            'success' => true,
+            'message' => 'Data ',
+            'data' => $data,
+        ]);
+    }
     function listImunisasiAll()
     {
         $data = DB::select("select i.*, u.name, u.nama_ortu from imunisasi i, users u where i.id_user=u.id");

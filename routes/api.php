@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/listUsers',  [GeneralController::class, 'listUsers']);
     Route::get('/listImunisasiAll',  [GeneralController::class, 'listImunisasiAll']);
     Route::get('/liestUserById',  [GeneralController::class, 'liestUserById']);
+    Route::get('/liestImunisasiById',  [GeneralController::class, 'liestImunisasiById']);
 });
 
 Route::get('/messages',  [ChatController::class, 'messages']);
