@@ -118,4 +118,11 @@ class GeneralController extends Controller
             'data' => $data,
         ]);
     }
+    function deleteImunisasi(Request $request) {
+        DB::table('imunisasi')->where('id', $request->id)->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Delete data'
+        ]);
+    }
 }
