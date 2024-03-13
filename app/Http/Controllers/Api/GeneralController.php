@@ -118,6 +118,23 @@ class GeneralController extends Controller
             'data' => $data,
         ]);
     }
+    function updateImunisasi(Request $request)
+    {
+        $data = [
+            'jenis_vaksin' => $request->jenis_vaksin,
+            'tanggal_vaksin' => $request->tanggal_vaksin,
+            'anak_ke' => $request->anak_ke,
+            'jadwal_mendatang' => $request->jadwal_mendatang,
+            'updated_at' => now()
+        ];
+        // dd($data);
+        DB::table('imunisasi')->where('id', $request->id)->update($data);
+        return response()->json([
+            'success' => true,
+            'message' => 'updated data',
+            'data' => $data,
+        ]);
+    }
     function deleteImunisasi(Request $request) {
         DB::table('imunisasi')->where('id', $request->id)->delete();
         return response()->json([

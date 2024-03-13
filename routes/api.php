@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/listKeluhanById/{id}',  [KeluhanController::class, 'listKeluhanById']);
     Route::get('/listUsers',  [GeneralController::class, 'listUsers']);
     Route::get('/listImunisasiAll',  [GeneralController::class, 'listImunisasiAll']);
+    Route::post('/updateImunisasi',  [GeneralController::class, 'updateImunisasi']);
     Route::post('/deleteImunisasi',  [GeneralController::class, 'deleteImunisasi']);
     Route::get('/liestUserById',  [GeneralController::class, 'liestUserById']);
     Route::get('/liestImunisasiById',  [GeneralController::class, 'liestImunisasiById']);
