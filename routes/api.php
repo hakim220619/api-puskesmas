@@ -28,7 +28,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/listKonsultasi',  [ChatController::class, 'listKonsultasi']);
     Route::get('/listKeluhan',  [KeluhanController::class, 'listKeluhan']);
+    Route::post('/verifikasiKeluhan',  [KeluhanController::class, 'verifikasiKeluhan']);
     Route::get('/listKeluhanById/{id}',  [KeluhanController::class, 'listKeluhanById']);
+    Route::get('/delete-keluhan/{id}',  [KeluhanController::class, 'deleteKeluhan']);
     Route::get('/listUsers',  [GeneralController::class, 'listUsers']);
     Route::get('/listImunisasiAll',  [GeneralController::class, 'listImunisasiAll']);
     Route::post('/updateImunisasi',  [GeneralController::class, 'updateImunisasi']);
