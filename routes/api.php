@@ -37,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/deleteImunisasi',  [GeneralController::class, 'deleteImunisasi']);
     Route::get('/liestUserById',  [GeneralController::class, 'liestUserById']);
     Route::get('/liestImunisasiById',  [GeneralController::class, 'liestImunisasiById']);
+    Route::get('/exportPdf',  [GeneralController::class, 'exportPdf']);
 });
 
 Route::get('/messages',  [ChatController::class, 'messages']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -141,5 +142,24 @@ class GeneralController extends Controller
             'success' => true,
             'message' => 'Delete data'
         ]);
+    }
+    public function exportPdf()
+    {
+        $data['users'] = DB::table('users')->where('role', 2)->get();
+        // dd($data);
+        $pdf = PDF::loadView('pdfs.index', $data);
+        $filename = 'Bayi' .'_'. date('mhs');
+        $pdf->save(public_path("storage/pdf/" . $filename . ".pdf"));
+        if ($pdf) {
+            $response =  array(
+                'success'   => true,
+                'msg'       => "Download success",
+                'file'      => asset('storage/pdf/' . $filename . '.pdf'),
+                'file_name' =>  $filename
+            );
+            return response($response);
+        } else {
+            return response(array('msg' => 'There is no data to export.'));
+        }
     }
 }
