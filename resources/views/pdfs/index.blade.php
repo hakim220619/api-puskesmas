@@ -30,10 +30,9 @@
         <tr>
             <th>No</th>
             <th>Nama</th>
-            <th>Email</th>
             <th>Jenis Kelamin</th>
-            <th>Bb Lahir</th>
-            <th>Tb Lahir</th>
+            <th>Bb</th>
+            <th>Tb</th>
             <th>Nama Ortu</th>
         </tr>
         @php
@@ -44,7 +43,6 @@
                 <th>{{ $no++ }}</th>
                 <th>{{ $a->name }}</th>
                 <th>{{ $a->email }}</th>
-                <th>{{ $a->jenis_kelamin }}</th>
                 <th>{{ $a->bb_lahir }}</th>
                 <th>{{ $a->tb_lahir }}</th>
                 <th>{{ $a->nama_ortu }}</th>

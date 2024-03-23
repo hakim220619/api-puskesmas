@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/liestUserById',  [GeneralController::class, 'liestUserById']);
     Route::get('/liestImunisasiById',  [GeneralController::class, 'liestImunisasiById']);
     Route::get('/exportPdf',  [GeneralController::class, 'exportPdf']);
+    Route::get('/getGravikSiswa',  [GeneralController::class, 'getGravikSiswa']);
 });
 
 Route::get('/messages',  [ChatController::class, 'messages']);

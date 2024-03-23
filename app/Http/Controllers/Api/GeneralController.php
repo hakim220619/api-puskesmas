@@ -47,6 +47,15 @@ class GeneralController extends Controller
             'data' => $data,
         ]);
     }
+    function getGravikSiswa()
+    {
+        $data = DB::select("select name, bb_lahir from users where role = '2'");
+        return response()->json([
+            'success' => true,
+            'message' => 'Data ',
+            'data' => $data,
+        ]);
+    }
     function updatepenimbangan(Request $request)
     {
         // dd($request->all());
