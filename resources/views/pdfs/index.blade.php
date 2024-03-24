@@ -31,8 +31,8 @@
             <th>No</th>
             <th>Nama</th>
             <th>Jenis Kelamin</th>
-            <th>Bb</th>
-            <th>Tb</th>
+            <th>Alamat</th>
+            <th>tanggal_lahir</th>
             <th>Nama Ortu</th>
         </tr>
         @php
@@ -43,8 +43,8 @@
                 <th>{{ $no++ }}</th>
                 <th>{{ $a->name }}</th>
                 <th>{{ $a->jenis_kelamin }}</th>
-                <th>{{ $a->bb_lahir }}</th>
-                <th>{{ $a->tb_lahir }}</th>
+                <th>{{ $a->address }}</th>
+                <th>{{ $a->tanggal_lahir }}</th>
                 <th>{{ $a->nama_ortu }}</th>
             </tr>
         @endforeach
