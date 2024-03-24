@@ -38,7 +38,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/liestUserById',  [GeneralController::class, 'liestUserById']);
     Route::get('/liestImunisasiById',  [GeneralController::class, 'liestImunisasiById']);
     Route::get('/exportPdf',  [GeneralController::class, 'exportPdf']);
-    Route::get('/getGravikSiswa',  [GeneralController::class, 'getGravikSiswa']);
+    Route::post('/getGravikSiswa',  [GeneralController::class, 'getGravikSiswa']);
+    Route::post('/getMonth',  [GeneralController::class, 'getMonth']);
+    Route::get('/getPenimbanganByMonth/{id}',  [GeneralController::class, 'getPenimbanganByMonth']);
+    Route::post('/addPenimbangan',  [GeneralController::class, 'addPenimbangan']);
 });
 
 Route::get('/messages',  [ChatController::class, 'messages']);

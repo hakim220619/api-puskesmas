@@ -47,12 +47,47 @@ class GeneralController extends Controller
             'data' => $data,
         ]);
     }
-    function getGravikSiswa()
+    function getGravikSiswa(Request $request)
     {
-        $data = DB::select("select name, bb_lahir from users where role = '2'");
+        $data = DB::select("select lp.bb_lahir, b.nama_bulan from list_penimbangan lp, users u, bulan b where lp.id_user=u.id and lp.id_bulan=b.id and lp.id_user = '$request->id' and lp.tahun = '$request->tahun' order by lp.id_bulan");
         return response()->json([
             'success' => true,
             'message' => 'Data ',
+            'data' => $data,
+        ]);
+    }
+    function getMonth(Request $request)
+    {
+        $data = DB::select("select * from bulan WHERE id NOT IN (SELECT id_bulan FROM list_penimbangan WHERE id_user = '$request->id_user' and tahun = '$request->tahun')");
+        return response()->json([
+            'success' => true,
+            'message' => 'Data ',
+            'data' => $data,
+        ]);
+    }
+    function getPenimbanganByMonth($id)
+    {
+        $data = DB::select("select lp.*, u.name, b.nama_bulan from list_penimbangan lp, users u, bulan b where lp.id_user=u.id and lp.id_bulan=b.id and lp.id_user = '$id' order by lp.id_bulan");
+        return response()->json([
+            'success' => true,
+            'message' => 'Data ',
+            'data' => $data,
+        ]);
+    }
+    function addPenimbangan(Request $request)
+    {
+        $data = [
+            'id_user' => $request->id_user,
+            'tahun' => $request->tahun,
+            'id_bulan' => $request->id_bulan,
+            'bb_lahir' => $request->bb_lahir,
+            'tb_lahir' => $request->tb_lahir,
+            'created_at' => now()
+        ];
+        DB::table('list_penimbangan')->insert($data);
+        return response()->json([
+            'success' => true,
+            'message' => 'Insert data',
             'data' => $data,
         ]);
     }
@@ -65,7 +100,7 @@ class GeneralController extends Controller
             'updated_at' => now()
         ];
         // dd($data);
-        DB::table('users')->where('id', $request->id)->update($data);
+        DB::table('list_penimbangan')->where('id', $request->id)->update($data);
         return response()->json([
             'success' => true,
             'message' => 'Insert data',
