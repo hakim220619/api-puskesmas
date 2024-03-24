@@ -42,7 +42,7 @@
             <tr>
                 <th>{{ $no++ }}</th>
                 <th>{{ $a->name }}</th>
-                <th>{{ $a->email }}</th>
+                <th>{{ $a->jenis_kelamin }}</th>
                 <th>{{ $a->bb_lahir }}</th>
                 <th>{{ $a->tb_lahir }}</th>
                 <th>{{ $a->nama_ortu }}</th>
