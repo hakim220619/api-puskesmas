@@ -67,7 +67,7 @@ class GeneralController extends Controller
     }
     function getPenimbanganByMonth($id)
     {
-        $data = DB::select("select lp.*, u.name, b.nama_bulan from list_penimbangan lp, users u, bulan b where lp.id_user=u.id and lp.id_bulan=b.id and lp.id_user = '$id' order by lp.id_bulan");
+        $data = DB::select("select lp.*, u.name, b.nama_bulan from list_penimbangan lp, users u, bulan b where lp.id_user=u.id and lp.id_bulan=b.id and lp.id_user = '$id' order by lp.tahun, lp.id_bulan");
         return response()->json([
             'success' => true,
             'message' => 'Data ',
