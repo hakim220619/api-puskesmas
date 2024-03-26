@@ -189,7 +189,7 @@ class GeneralController extends Controller
     }
     public function exportPdf()
     {
-        $data['users'] = DB::table('users')->where('role', 2)->get();
+        $data['users'] = DB::select("SELECT u.name, u.jenis_kelamin, u.nama_ortu, i.jenis_vaksin, (SELECT bb_lahir from list_penimbangan lp WHERE lp.id_user=u.id ORDER BY lp.id_bulan DESC LIMIT 1) as bb_lahir, (SELECT tb_lahir from list_penimbangan lp WHERE lp.id_user=u.id ORDER BY lp.id_bulan DESC LIMIT 1) as tb_lahir FROM users u, imunisasi i WHERE u.id=i.id_user");
         // dd($data);
         $pdf = PDF::loadView('pdfs.index', $data);
         $filename = 'Bayi' .'_'. date('mhs');
