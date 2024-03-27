@@ -18,7 +18,7 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
         $user = User::where('email', $request->email)->first();
-
+        $getbbtb = DB::select("select bb_lahir, tb_lahir from list_penimbangan where id_user = " . $user->id . " order by created_at DESC ");
         // if ($user == null) {
         //     $user = User::where('nisn', $request->email)->first();
         // }
@@ -34,9 +34,11 @@ class AuthController extends Controller
             'message' => 'Login berhasil',
             'token' => $token,
             'userData' => $user,
+            'bb_lahir' => $getbbtb[0]->bb_lahir,
+            'tb_lahir' => $getbbtb[0]->tb_lahir,
         ]);
     }
-    
+
     function getUsers()
     {
         $user = User::where('email', request()->user()->email)->get();
