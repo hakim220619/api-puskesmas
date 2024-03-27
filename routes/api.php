@@ -40,12 +40,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/exportPdf',  [GeneralController::class, 'exportPdf']);
     Route::post('/getGravikSiswa',  [GeneralController::class, 'getGravikSiswa']);
     Route::post('/getMonth',  [GeneralController::class, 'getMonth']);
+    Route::post('/getMonthImunisasi',  [GeneralController::class, 'getMonthImunisasi']);
     Route::get('/getPenimbanganByMonth/{id}',  [GeneralController::class, 'getPenimbanganByMonth']);
     Route::post('/addPenimbangan',  [GeneralController::class, 'addPenimbangan']);
+   
 });
 
 Route::get('/messages',  [ChatController::class, 'messages']);
-
+Route::post('/word',  [GeneralController::class, 'word']);
 Route::post('/addMessage',  [ChatController::class, 'addMessage']);
 Route::post('/addKeluhan',  [KeluhanController::class, 'addKeluhan']);
 Route::post('/addJawaban',  [KeluhanController::class, 'addJawaban']);

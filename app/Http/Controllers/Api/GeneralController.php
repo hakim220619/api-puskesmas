@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -40,7 +41,7 @@ class GeneralController extends Controller
     }
     function listImunisasiAll()
     {
-        $data = DB::select("select i.*, u.name, u.nama_ortu from imunisasi i, users u where i.id_user=u.id");
+        $data = DB::select("select i.*, u.name, u.nama_ortu, b.nama_bulan from imunisasi i, users u, bulan b where i.id_user=u.id and i.id_bulan=b.id");
         return response()->json([
             'success' => true,
             'message' => 'Data ',
@@ -59,6 +60,15 @@ class GeneralController extends Controller
     function getMonth(Request $request)
     {
         $data = DB::select("select * from bulan WHERE id NOT IN (SELECT id_bulan FROM list_penimbangan WHERE id_user = '$request->id_user' and tahun = '$request->tahun')");
+        return response()->json([
+            'success' => true,
+            'message' => 'Data ',
+            'data' => $data,
+        ]);
+    }
+    function getMonthImunisasi(Request $request)
+    {
+        $data = DB::select("select * from bulan WHERE id NOT IN (SELECT id_bulan FROM imunisasi WHERE id_user = '$request->id_user' and tahun = '$request->tahun')");
         return response()->json([
             'success' => true,
             'message' => 'Data ',
@@ -153,6 +163,8 @@ class GeneralController extends Controller
             'tanggal_vaksin' => $request->tanggal_vaksin,
             'anak_ke' => $request->anak_ke,
             'jadwal_mendatang' => $request->jadwal_mendatang,
+            'tahun' => $request->tahun,
+            'id_bulan' => $request->id_bulan,
             'created_at' => now()
         ];
         // dd($data);
@@ -180,7 +192,8 @@ class GeneralController extends Controller
             'data' => $data,
         ]);
     }
-    function deleteImunisasi(Request $request) {
+    function deleteImunisasi(Request $request)
+    {
         DB::table('imunisasi')->where('id', $request->id)->delete();
         return response()->json([
             'success' => true,
@@ -192,13 +205,45 @@ class GeneralController extends Controller
         $data['users'] = DB::select("SELECT u.name, u.jenis_kelamin, u.nama_ortu, i.jenis_vaksin, (SELECT bb_lahir from list_penimbangan lp WHERE lp.id_user=u.id ORDER BY lp.id_bulan DESC LIMIT 1) as bb_lahir, (SELECT tb_lahir from list_penimbangan lp WHERE lp.id_user=u.id ORDER BY lp.id_bulan DESC LIMIT 1) as tb_lahir FROM users u, imunisasi i WHERE u.id=i.id_user");
         // dd($data);
         $pdf = PDF::loadView('pdfs.index', $data);
-        $filename = 'Bayi' .'_'. date('mhs');
+        $filename = 'Bayi' . '_' . date('mhs');
         $pdf->save(public_path("storage/pdf/" . $filename . ".pdf"));
         if ($pdf) {
             $response =  array(
                 'success'   => true,
                 'msg'       => "Download success",
                 'file'      => asset('storage/pdf/' . $filename . '.pdf'),
+                'file_name' =>  $filename
+            );
+            return response($response);
+        } else {
+            return response(array('msg' => 'There is no data to export.'));
+        }
+    }
+    public function word(Request $request)
+    {
+
+        $getData = DB::select("SELECT u.id, k.pertanyaan, u.name, u.nik, u.jenis_kelamin, u.nama_ortu, u.tanggal_lahir, k.created_at FROM keluhan k, users u WHERE k.id_ortu=u.id and k.id = '$request->id' ORDER BY k.created_at DESC");
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(public_path("storage/word/rujukan.docx"));
+        $filename = 'Keluhan' . '_' . date('mhs');
+        $templateProcessor->setValues([
+            'nama' => $getData[0]->name,
+            'nik' => $getData[0]->nik,
+            'jenis_kelamin' => $getData[0]->jenis_kelamin,
+            'nama_ortu' => $getData[0]->nama_ortu,
+            'tanggal_lahir' => $getData[0]->tanggal_lahir,
+            'keluhan ' => $getData[0]->pertanyaan,
+        ]);
+
+        header("Content-Disposition: attachment; filename=" . $filename . ".docx");
+
+        $templateProcessor->saveAs(public_path("storage/word/" . $filename . ".docx"));
+
+
+        if ($templateProcessor) {
+            $response =  array(
+                'success'   => true,
+                'msg'       => "Download success",
+                'file'      => asset('storage/word/' . $filename . '.docx'),
                 'file_name' =>  $filename
             );
             return response($response);
