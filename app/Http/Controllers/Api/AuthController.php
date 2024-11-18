@@ -18,6 +18,7 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
         $user = User::where('email', $request->email)->first();
+        // dd($user);
         $getbbtb = DB::select("select bb_lahir, tb_lahir from list_penimbangan where id_user = " . $user->id . " order by created_at DESC ");
         // if ($user == null) {
         //     $user = User::where('nisn', $request->email)->first();

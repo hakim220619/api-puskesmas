@@ -47,6 +47,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::get('/messages',  [ChatController::class, 'messages']);
+Route::get('/blog',  [GeneralController::class, 'blog']);
 Route::post('/word',  [GeneralController::class, 'word']);
 Route::post('/addMessage',  [ChatController::class, 'addMessage']);
 Route::post('/addKeluhan',  [KeluhanController::class, 'addKeluhan']);
@@ -54,4 +55,8 @@ Route::post('/addJawaban',  [KeluhanController::class, 'addJawaban']);
 Route::post('/addImunisasi',  [GeneralController::class, 'addImunisasi']);
 Route::post('/updatepenimbangan',  [GeneralController::class, 'updatepenimbangan']);
 Route::post('/editUsersOrtu',  [GeneralController::class, 'editUsersOrtu']);
+Route::post('/change-image',  [GeneralController::class, 'changeImage']);
+Route::post('/saveBlogBerita',  [GeneralController::class, 'saveBlogBerita']);
+Route::post('/updateBlogBerita/{id}',  [GeneralController::class, 'updateBlogBerita']);
+Route::delete('/deleteBlog/{id}', [GeneralController::class, 'deleteBlog']);
 Route::get('/keluhan/{id}',  [KeluhanController::class, 'keluhan']);
